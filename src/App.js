@@ -1,111 +1,8 @@
 import React, { Component } from 'react';
-import check from './check-green.png';
-import x from './x.png';
 import './App.css';
-
-
-class Child extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: " ",
-        }
-        this.handleChange = this.handleChange.bind(this)
-    }
-
-    handleChange(event) {
-        console.log(event.target.value);
-        this.setState({ value: event.target.value });
-
-    }
-
-
-    render() {
-
-        return (
-            <div className="child">
-            <h1>To Do:</h1>
-          <form onSubmit = {(event)=> { 
-              this.props.formSubmit(event, this.state.value); 
-              this.setState({value:""})
-            }}>
-
-          <input type="text" onChange={this.handleChange} value = {this.state.value}/>
-          <input type="submit"/>
-          </form>
-        </div>
-        )
-    }
-}
-
-
-
-
-class View extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            itemDeleted: []
-        };
-    }
-
-
-    render() {
-
-
-        return (
-            <div className="view">
-            <h2>To Do List:</h2>
-         <ul>
-           {
-
-                this.props.todos.map((val,index)=>{
-                      return <li key={index}> {val} 
-                      <a href="#" onClick={()=>this.props.moveToDeleted(val,index)}> 
-                      &nbsp;
-<img src={check} className="Check" alt="check" />
-                      </a>
-                      </li>
-                })
-           }
-         </ul>
-         </div>
-        )
-    }
-
-}
-
-class Deleted extends React.Component {
-
-
-
-
-    render() {
-
-        return (
-            <div className="deleted">
-            <h2>To Do Completed</h2>
-         <ul>
-           {
-
-                this.props.todosDeleted.map((item,index)=>{
-                      
-                      return <li key={index}> {item} 
-<a href="#" onClick={()=>this.props.moveToTrash(item,index)}> 
-                      &nbsp;
-<img src={x} className="X" alt="x" />
-                      </a>
-                      </li>
-                })
-           }
-           
-         </ul>         
-        </div>
-        )
-    }
-}
-
-
+import Deleted from './Deleted/Deleted';
+import Child from './Child/Child';
+import View from './View/View';
 
 
 class App extends React.Component {
@@ -119,7 +16,6 @@ class App extends React.Component {
         }
 
         this.formSubmit = this.formSubmit.bind(this)
-
 
     }
 
@@ -143,12 +39,12 @@ class App extends React.Component {
 
 
 
-        console.log(value + " is my value")
+        //console.log(value + " is my value")
         // get index and store item. 
         // and update state with item removed.
         // set item in "deletedItems" array
 
-        console.log(this.state.deletedItems)
+        //console.log(this.state.deletedItems)
 
     }
 
@@ -165,9 +61,7 @@ class App extends React.Component {
             <div className="app">
 
               <Child formSubmit = {this.formSubmit} />
-
                <View todos = {this.state.formData} moveToDeleted = {this.moveToDeleted}/>
-
                <Deleted todosDeleted = {this.state.deletedItems} moveToTrash = {this.moveToTrash}/>
 
             </div>
@@ -177,7 +71,6 @@ class App extends React.Component {
 
 
 
-
-
-
 export default App;
+
+
